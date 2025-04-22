@@ -9,14 +9,16 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ preflight 요청 응답
+  // ✅ OPTIONS 프리플라이트 요청 처리
   if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   try {
-    const response = await notion.databases.query({ database_id: databaseId });
+    const response = await notion.databases.query({
+      database_id: databaseId,
+    });
+
     const results = response.results.map((page) => {
       const props = page.properties;
       return {
@@ -27,7 +29,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(results);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Failed to fetch data from Notion");
+    console.error("❌ Notion API Error:", error);
+    res.status(500).json({ message: "Failed to fetch data from Notion" });
   }
 };
