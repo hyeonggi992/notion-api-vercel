@@ -1,10 +1,9 @@
-require("dotenv").config();
 const { Client } = require("@notionhq/client");
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const databaseId = process.env.NOTION_DB_ID;
 
-module.exports = async (req, res) => {
+async function handler(req, res) {
   try {
     const response = await notion.databases.query({ database_id: databaseId });
 
@@ -21,4 +20,6 @@ module.exports = async (req, res) => {
     console.error(error);
     res.status(500).send("Failed to fetch data from Notion");
   }
-};
+}
+
+module.exports = handler;
