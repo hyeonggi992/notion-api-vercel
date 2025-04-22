@@ -15,6 +15,8 @@ module.exports = async (req, res) => {
   }
 
   try {
+console.log("🔥 Notion fetch triggered");	
+
     const response = await notion.databases.query({
       database_id: databaseId,
     });
