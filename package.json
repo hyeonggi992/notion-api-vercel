@@ -1,0 +1,9 @@
+{
+  "name": "notion-api-vercel",
+  "version": "1.0.0",
+  "main": "api/components.js",
+  "dependencies": {
+    "@notionhq/client": "^2.2.4",
+    "dotenv": "^16.5.0"
+  }
+}
